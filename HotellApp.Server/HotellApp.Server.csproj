@@ -27,8 +27,4 @@
     <ProjectReference Include="..\HotellApp.Data\HotellApp.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
 </Project>
