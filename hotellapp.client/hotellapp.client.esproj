@@ -7,4 +7,9 @@
     <!-- Folder where production build objects will be placed -->
     <BuildOutputFolder>$(MSBuildProjectDirectory)\dist\hotellapp.client\browser\</BuildOutputFolder>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="src\app\NavBar\" />
+    <Folder Include="src\app\ManageComponent\" />
+    <Folder Include="src\app\RegisterComponent\" />
+  </ItemGroup>
 </Project>
