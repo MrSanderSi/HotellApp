@@ -10,11 +10,13 @@ public class HotellBookingController : ControllerBase
 {
 	private readonly ILogger<HotellBookingController> _logger;
 	private readonly IHotellManagementService _hotellManagementService;
+	private readonly IBookingService _bookingService;
 
-	public HotellBookingController(ILogger<HotellBookingController> logger, IHotellManagementService hotellManagementService)
+	public HotellBookingController(ILogger<HotellBookingController> logger, IHotellManagementService hotellManagementService, IBookingService bookingService)
 	{
 		_logger = logger;
 		_hotellManagementService = hotellManagementService;
+		_bookingService = bookingService;
 	}
 
 	[HttpGet("GetAllRooms")]
@@ -26,15 +28,7 @@ public class HotellBookingController : ControllerBase
 	[HttpGet("GetVacantRooms")]
 	public async Task<IEnumerable<HotellRoomDto>> GetVacantRoomsAsync([FromQuery] GetHotellRoomsRequest request)
 	{
-		// Assuming you would call a service method to get vacant rooms asynchronously
-		return await Task.FromResult(Enumerable.Range(1, 5).Select(index => new HotellRoomDto
-		{
-			Id = Guid.NewGuid(),
-			BedCount = Random.Shared.Next(1, 3),
-			Price = Random.Shared.Next(50, 120),
-			Description = "Test Room"
-		})
-		.ToArray());
+		return await _bookingService.GetAllVacantRooms(request);
 	}
 
 	[HttpPost("AddRoom")]

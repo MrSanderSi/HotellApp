@@ -24,11 +24,13 @@ builder.Services.AddDbContext<HotellAppDbContext>(options =>
 
 // Add Services
 builder.Services.AddScoped<IHotellManagementService, HotellManagementService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 // Add Commands
 builder.Services.AddScoped<AddRoomToDatabase>();
 builder.Services.AddScoped<GetAllRoomsFromDatabase>();
 builder.Services.AddScoped<DeleteRoomFromDatabase>();
+builder.Services.AddScoped<GetAllVacantRoomsFromDatabase>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

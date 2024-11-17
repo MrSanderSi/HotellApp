@@ -10,6 +10,7 @@
   <ItemGroup>
     <Folder Include="src\app\NavBar\" />
     <Folder Include="src\app\ManageComponent\" />
+    <Folder Include="src\app\BookingComponent\" />
     <Folder Include="src\app\RegisterComponent\" />
   </ItemGroup>
 </Project>
