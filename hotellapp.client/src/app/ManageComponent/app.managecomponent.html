@@ -1,11 +1,42 @@
-<!DOCTYPE html>
+<form [formGroup]="addRoomForm" (ngSubmit)="onSubmit()" class="add-form">
+  <div>
+    <label for="roomNumber">Room number:</label>
+    <input id="roomNumber" type="number" formControlName="roomNumber">
+  </div>
+  <div>
+    <label for="bedCount">Bed Count:</label>
+    <input id="bedCount" type="number" formControlName="bedCount">
+  </div>
+  <div>
+    <label for="price">Price:</label>
+    <input id="price" type="number" formControlName="price">
+  </div>
+  <div>
+    <label for="description">Description:</label>
+    <textarea id="description" formControlName="description"></textarea>
+  </div>
+  <button type="submit">Add Room</button>
+</form>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="utf-8" />
-    <title>Hello World</title>
-</head>
-<body>
+<h1 id="tableLabel">Hotelli Ruumid</h1>
 
-</body>
-</html>
+<table>
+  <thead>
+    <tr>
+      <th>Room number</th>
+      <th>Amount of beds</th>
+      <th>Price</th>
+      <th>Description</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let room of rooms">
+      <td>{{ room.roomNumber }}</td>
+      <td>{{ room.bedCount }}</td>
+      <td>{{ room.price }}</td>
+      <td>{{ room.description }}</td>
+      <td><button (click)="deleteRoom(room.id)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
