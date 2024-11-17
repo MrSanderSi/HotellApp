@@ -5,7 +5,8 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 interface HotellRoom {
   id: string;
-  numberOfBeds: number;
+  roomNumber: number;
+  bedCount: number;
   price: number;
   description: string;
 }
@@ -16,32 +17,58 @@ interface HotellRoom {
   styleUrl: './app.managecomponent.css'
 })
 
-export class ManageComponent {
+export class ManageComponent implements OnInit {
   public rooms: HotellRoom[] = [];
-  public registrationForm: FormGroup;
+  public addRoomForm: FormGroup;
 
   constructor(private http: HttpClient, private fb: FormBuilder, private router: Router) {
-    this.registrationForm = this.fb.group({
-      idCode: ['', Validators.required],
-      fullName: ['', Validators.required],
-      bookingStartdate: ['', Validators.required],
-      bookingEndDate: ['', Validators.required],
-      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      email: ['', [Validators.required, Validators.email]]
+    this.addRoomForm = this.fb.group({
+      roomNumber: ['', Validators.required],
+      bedCount: ['', Validators.required],
+      price: ['', Validators.required],
+      description: ['', Validators.required]
     });
   }
 
+  ngOnInit() {
+    this.getRooms();
+  }
+
+  getRooms() {
+    this.http.get<HotellRoom[]>('/HotellBooking/GetAllRooms').subscribe(
+      (result) => {
+        this.rooms = result;
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+  }
+
   onSubmit() {
-    if (this.registrationForm.valid) {
-      console.log(this.registrationForm.value);
+    if (this.addRoomForm.valid) {
+      const newRoom: HotellRoom = this.addRoomForm.value;
+      this.http.post('/HotellBooking/AddRoom', newRoom).subscribe(
+        () => {
+          this.getRooms(); // Refresh the list of rooms
+        },
+        (error) => {
+          console.error(error);
+        }
+      );
     } else {
       console.error('Form is invalid');
     }
   }
 
-  goToRegistration(roomId: string) {
-    this.router.navigate(['/registration', roomId]);
+  deleteRoom(roomId: string) {
+    this.http.delete(`/HotellBooking/DeleteRoom/${roomId}`).subscribe(
+      () => {
+        this.getRooms(); // Refresh the list of rooms
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
   }
-
-  title = 'hotellapp.client';
 }

@@ -9,7 +9,9 @@ namespace HotellApp.Data.Models;
 public class HotellRoom
 {
 	public Guid Id { get; set; }
+	public int RoomNumber { get; set; }
 	public int BedCount { get; set; }
 	public decimal Price { get; set; }
+	public string Description { get; set; }
 	public IEnumerable<Booking> Bookings { get; set; }
 }

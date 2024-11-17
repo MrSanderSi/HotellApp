@@ -1,4 +1,6 @@
 using HotellApp.Data;
+using HotellApp.Server.Commands;
+using HotellApp.Server.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -19,6 +21,14 @@ builder.Services.AddDbContext<HotellAppDbContext>(options =>
 {
 	options.UseSqlServer("Server=localhost;Database=HotellAppDb;Trusted_Connection=True;TrustServerCertificate=True");
 });
+
+// Add Services
+builder.Services.AddScoped<IHotellManagementService, HotellManagementService>();
+
+// Add Commands
+builder.Services.AddScoped<AddRoomToDatabase>();
+builder.Services.AddScoped<GetAllRoomsFromDatabase>();
+builder.Services.AddScoped<DeleteRoomFromDatabase>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

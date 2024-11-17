@@ -5,7 +5,8 @@ import { Validators, FormGroup, FormBuilder, AbstractControl, ValidationErrors }
 
 interface HotellRoom {
   id: string;
-  numberOfBeds: number;
+  roomNumber: number;
+  bedCount: number;
   price: number;
   description: string;
 }

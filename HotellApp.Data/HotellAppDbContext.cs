@@ -18,11 +18,13 @@ public class HotellAppDbContext : DbContext
 		modelBuilder.Entity<HotellRoom>()
 			.HasMany(x => x.Bookings)
 			.WithOne(x => x.Room)
-			.HasForeignKey(x => x.Id);
+			.HasForeignKey(x => x.RoomId)
+			.OnDelete(DeleteBehavior.Cascade);
 
 		modelBuilder.Entity<Person>()
 			.HasMany(x => x.Bookings)
 			.WithOne(x => x.Person)
-			.HasForeignKey(x => x.Id);
+			.HasForeignKey(x => x.PersonId)
+			.OnDelete(DeleteBehavior.Cascade);
 	}
 }

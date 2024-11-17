@@ -15,6 +15,7 @@
 <table>
   <thead>
     <tr>
+      <th>Room Number</th>
       <th>Amount of Beds</th>
       <th>Price</th>
       <th>Description</th>
@@ -23,7 +24,8 @@
   </thead>
   <tbody>
     <tr *ngFor="let room of rooms">
-      <td>{{ room.numberOfBeds }}</td>
+      <td>{{ room.roomNumber }}</td>
+      <td>{{ room.bedCount }}</td>
       <td>{{ room.price }}</td>
       <td>{{ room.description }}</td>
       <td><button (click)="goToRegistration(room.id)">Register</button></td>
