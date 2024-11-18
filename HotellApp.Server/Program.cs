@@ -1,4 +1,7 @@
 using HotellApp.Data;
+using HotellApp.Server.Commands;
+using HotellApp.Server.Controllers;
+using HotellApp.Server.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,14 +14,27 @@ builder.Services.AddCors(options =>
 {
 	options.AddPolicy("AllowAll", builder =>
 	builder.AllowAnyOrigin()
-	.AllowAnyMethod()
-	.AllowAnyHeader());
+		   .AllowAnyMethod()
+		   .AllowAnyHeader());
 });
 
 builder.Services.AddDbContext<HotellAppDbContext>(options =>
 {
 	options.UseSqlServer("Server=localhost;Database=HotellAppDb;Trusted_Connection=True;TrustServerCertificate=True");
 });
+
+// Add Services
+builder.Services.AddScoped<IHotellManagementService, HotellManagementService>();
+builder.Services.AddScoped<IBookingService, BookingService>();
+
+// Add Commands
+builder.Services.AddScoped<AddRoomToDatabase>();
+builder.Services.AddScoped<GetAllRoomsFromDatabase>();
+builder.Services.AddScoped<DeleteRoomFromDatabase>();
+builder.Services.AddScoped<GetAllVacantRoomsFromDatabase>();
+builder.Services.AddScoped<RegisterBookingToDatabase>();
+builder.Services.AddScoped<GetAllBookingsFromDatabase>();
+builder.Services.AddScoped<DeleteBookingFromDatabase>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -28,6 +44,8 @@ var app = builder.Build();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
+app.UseCors("AllowAll");
+app.UseMiddleware<XRoadHeadersMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -42,6 +60,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapFallbackToFile("/index.html");
+app.MapFallbackToFile("");
 
 app.Run();

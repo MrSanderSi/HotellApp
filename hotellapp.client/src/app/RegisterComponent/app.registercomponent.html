@@ -1,0 +1,34 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()" class="search-form">
+  <div>
+    <label for="bookingStartDate">Booking Start Date:</label>
+    <input id="bookingStartDate" type="date" formControlName="bookingStartDate">
+  </div>
+  <div>
+    <label for="bookingEndDate">Booking End Date:</label>
+    <input id="bookingEndDate" type="date" formControlName="bookingEndDate">
+  </div>
+  <button type="submit">Submit</button>
+</form>
+
+<h1 id="tableLabel">Vabad Ruumid</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Room Number</th>
+      <th>Amount of Beds</th>
+      <th>Price per day</th>
+      <th>Description</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let room of rooms">
+      <td>{{ room.roomNumber }}</td>
+      <td>{{ room.bedCount }}</td>
+      <td>{{ room.price }}</td>
+      <td>{{ room.description }}</td>
+      <td><button (click)="goToRegistration(room.id)">Register</button></td>
+    </tr>
+  </tbody>
+</table>

@@ -4,6 +4,7 @@ using HotellApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotellApp.Data.Migrations
 {
     [DbContext(typeof(HotellAppDbContext))]
-    partial class HotellAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241117132204_BookingsConnectionFix")]
+    partial class BookingsConnectionFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -28,20 +31,11 @@ namespace HotellApp.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTimeOffset>("EndDate")
-                        .HasColumnType("datetimeoffset");
-
                     b.Property<Guid>("PersonId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("RoomId")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("StartDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

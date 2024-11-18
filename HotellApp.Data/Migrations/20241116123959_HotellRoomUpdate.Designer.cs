@@ -4,6 +4,7 @@ using HotellApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotellApp.Data.Migrations
 {
     [DbContext(typeof(HotellAppDbContext))]
-    partial class HotellAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241116123959_HotellRoomUpdate")]
+    partial class HotellRoomUpdate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,29 +28,9 @@ namespace HotellApp.Data.Migrations
             modelBuilder.Entity("HotellApp.Data.Models.Booking", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("EndDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid>("PersonId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("RoomId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("StartDate")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("PersonId");
-
-                    b.HasIndex("RoomId");
 
                     b.ToTable("Bookings");
                 });
@@ -104,15 +87,15 @@ namespace HotellApp.Data.Migrations
 
             modelBuilder.Entity("HotellApp.Data.Models.Booking", b =>
                 {
-                    b.HasOne("HotellApp.Data.Models.Person", "Person")
+                    b.HasOne("HotellApp.Data.Models.HotellRoom", "Room")
                         .WithMany("Bookings")
-                        .HasForeignKey("PersonId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("HotellApp.Data.Models.HotellRoom", "Room")
+                    b.HasOne("HotellApp.Data.Models.Person", "Person")
                         .WithMany("Bookings")
-                        .HasForeignKey("RoomId")
+                        .HasForeignKey("Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
