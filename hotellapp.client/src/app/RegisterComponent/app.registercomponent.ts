@@ -56,9 +56,9 @@ export class RegisterComponent implements OnInit {
       .set('StartDate', startDate)
       .set('EndDate', endDate);
 
-    this.http.get<HotellRoom[]>('/HotellBooking/GetVacantRooms', { params }).subscribe(
+    this.http.get<HotellRoom[]>('/api/v1/hotellbooking/rooms/vacant', { params }).subscribe(
       (result) => {
-        console.log('Response:', result)
+        console.log('Response:', result);
         this.rooms = result;
       },
       (error) => {
@@ -68,7 +68,22 @@ export class RegisterComponent implements OnInit {
   }
 
   goToRegistration(roomId: string) {
-    this.router.navigate(['/registration', roomId]);
+    const formValues = this.searchForm.value;
+
+    const startDate = formValues.bookingStartDate ?
+      new Date(formValues.bookingStartDate).toISOString() :
+      new Date(new Date().setDate(new Date().getDate() + 3)).toISOString();
+
+    const endDate = formValues.bookingEndDate ?
+      new Date(formValues.bookingEndDate).toISOString() :
+      new Date(new Date().setDate(new Date().getDate() + 4)).toISOString();
+
+    this.router.navigate(['/registration', roomId], {
+      queryParams: {
+        startDate: startDate,
+        endDate: endDate
+      }
+    });
   }
 
   dateValidator(group: AbstractControl): ValidationErrors | null {

@@ -8,7 +8,7 @@
     <input id="bedCount" type="number" formControlName="bedCount">
   </div>
   <div>
-    <label for="price">Price:</label>
+    <label for="price">Price per day:</label>
     <input id="price" type="number" formControlName="price">
   </div>
   <div>
@@ -18,7 +18,7 @@
   <button type="submit">Add Room</button>
 </form>
 
-<h1 id="tableLabel">Hotelli Ruumid</h1>
+<h2 id="tableLabel">Hotell rooms</h2>
 
 <table>
   <thead>
@@ -37,6 +37,46 @@
       <td>{{ room.price }}</td>
       <td>{{ room.description }}</td>
       <td><button (click)="deleteRoom(room.id)">Delete</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<h2>Search Bookings</h2>
+
+<form [formGroup]="searchBookingsForm" (ngSubmit)="searchBookings()">
+  <div class="form-group">
+    <label for="startDate">Start Date</label>
+    <input type="date" id="startDate" formControlName="startDate" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="endDate">End Date</label>
+    <input type="date" id="endDate" formControlName="endDate" class="form-control">
+  </div>
+  <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+<h2>Bookings</h2>
+<table class="table" *ngIf="bookings.length > 0">
+  <thead>
+    <tr>
+      <th>Room Number</th>
+      <th>Guest Name</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Total Price</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let booking of bookings">
+      <td>{{ booking.roomNumber }}</td>
+      <td>{{ booking.name }}</td>
+      <td>{{ booking.startDate | date: 'yyyy-MM-dd' }}</td>
+      <td>{{ booking.endDate | date: 'yyyy-MM-dd' }}</td>
+      <td>{{ booking.totalPrice }}</td>
+      <td>
+        <button (click)="cancelBooking(booking.id)" class="btn btn-danger">Cancel</button>
+      </td>
     </tr>
   </tbody>
 </table>

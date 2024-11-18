@@ -13,6 +13,7 @@ public class Booking
 	public Guid PersonId { get; set; }
 	public DateTimeOffset StartDate { get; set; }
 	public DateTimeOffset EndDate { get; set; }
+	public decimal TotalPrice { get; set; }
 	public HotellRoom Room { get; set; }
 	public Person Person { get; set; }
 }
