@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -9,13 +9,16 @@ import { NavbarComponent } from './NavBar/app.navbar';
 import { ManageComponent } from './ManageComponent/app.managecomponent';
 import { RegisterComponent } from './RegisterComponent/app.registercomponent';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { BookingComponent } from './BookingComponent/app.bookingcomponent';
+import { XRoadInterceptor } from './XRoadInterceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     ManageComponent,
-    RegisterComponent
+    RegisterComponent,
+    BookingComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +27,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
   ],
   providers: [
     provideHttpClient(),
-    provideAnimationsAsync('noop')
+    provideAnimationsAsync('noop'),
+    { provide: HTTP_INTERCEPTORS, useClass: XRoadInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]
 })

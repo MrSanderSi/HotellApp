@@ -16,18 +16,32 @@ public class HotellManagementService : IHotellManagementService
 		_deleteRoomFromDatabase = deleteRoomFromDatabase;
 	}
 
-	public async Task AddRoom(HotellRoomDto room)
+	public async Task<ServiceResult> AddRoom(HotellRoomDto room)
 	{
+		if (room == null)
+		{
+			return ServiceResult.Failure("Room data is required.");
+		}
+
 		await _addRoomToDatabase.ExecuteAsync(room);
+
+		return ServiceResult.SuccessResult();
 	}
 
-	public async Task<IEnumerable<HotellRoomDto>> GetAllRooms()
+	public async Task<ServiceResult<IEnumerable<HotellRoomDto>>> GetAllRooms()
 	{
-		return await _getAllRoomsFromDatabase.ExecuteAsync();
+		return ServiceResult<IEnumerable<HotellRoomDto>>.SuccessResult(await _getAllRoomsFromDatabase.ExecuteAsync());
 	}
 
-	public async Task DeleteRoom(Guid id)
+	public async Task<ServiceResult> DeleteRoom(Guid id)
 	{
+		if (id == Guid.Empty)
+		{
+			return ServiceResult.Failure("Invalid room ID.");
+		}
+
 		await _deleteRoomFromDatabase.ExecuteAsync(id);
+
+		return ServiceResult.SuccessResult();
 	}
 }

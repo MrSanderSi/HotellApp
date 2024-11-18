@@ -1,14 +1,22 @@
 using HotellApp.Server.Models;
 using System.Threading.Tasks;
 
-namespace HotellApp.Server.Services
+namespace HotellApp.Server.Services;
+
+public interface IHotellManagementService
 {
-	public interface IHotellManagementService
-	{
-		Task AddRoom(HotellRoomDto room);
+	/// <summary>
+	/// Adds a new room to the hotel database.
+	/// </summary>
+	Task<ServiceResult> AddRoom(HotellRoomDto room);
 
-		Task DeleteRoom(Guid id);
+	/// <summary>
+	/// Deletes a room from the hotel database.
+	/// </summary>
+	Task<ServiceResult> DeleteRoom(Guid id);
 
-		Task<IEnumerable<HotellRoomDto>> GetAllRooms();
-	}
+	/// <summary>
+	/// Gets all rooms from the hotel database.
+	/// </summary>
+	Task<ServiceResult<IEnumerable<HotellRoomDto>>> GetAllRooms();
 }
