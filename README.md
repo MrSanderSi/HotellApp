@@ -18,7 +18,7 @@ There are 2 sections to the UI. "Register" and "Manage".
 
 ## Manage section
 User can add new rooms, delete existing rooms and query for bookings within a given timeframe.
-User can delete bookings that are more than 72 hours before the booking start date.
+User can delete bookings that are more than 72 hours from current DateTime.
 
 ## Register section
 User can look for vacant rooms via selecting booking start and end dates. The "submit" button will query for vacant rooms within that timeframe.
