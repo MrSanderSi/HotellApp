@@ -2,6 +2,6 @@
 
 public class GetHotellRoomsRequest
 {
-	public DateTimeOffset StartDate { get; set; }
-	public DateTimeOffset EndDate { get; set; }
+    public DateTimeOffset StartDate { get; set; }
+    public DateTimeOffset EndDate { get; set; }
 }

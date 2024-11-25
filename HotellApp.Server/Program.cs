@@ -12,15 +12,15 @@ builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
 {
-	options.AddPolicy("AllowAll", builder =>
-	builder.AllowAnyOrigin()
-		   .AllowAnyMethod()
-		   .AllowAnyHeader());
+    options.AddPolicy("AllowAll", builder =>
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader());
 });
 
 builder.Services.AddDbContext<HotellAppDbContext>(options =>
 {
-	options.UseSqlServer("Server=localhost;Database=HotellAppDb;Trusted_Connection=True;TrustServerCertificate=True");
+    options.UseSqlServer("Server=localhost;Database=HotellAppDb;Trusted_Connection=True;TrustServerCertificate=True");
 });
 
 // Add Services
@@ -50,8 +50,8 @@ app.UseMiddleware<XRoadHeadersMiddleware>();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
