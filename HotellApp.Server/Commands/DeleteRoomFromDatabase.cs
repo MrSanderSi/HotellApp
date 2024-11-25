@@ -6,25 +6,25 @@ namespace HotellApp.Server.Commands;
 
 public class DeleteRoomFromDatabase
 {
-	private readonly HotellAppDbContext _db;
+    private readonly HotellAppDbContext _db;
 
-	public DeleteRoomFromDatabase(HotellAppDbContext db)
-	{
-		_db = db;
-	}
+    public DeleteRoomFromDatabase(HotellAppDbContext db)
+    {
+        _db = db;
+    }
 
-	public async Task ExecuteAsync(Guid id)
-	{
-		var room = await _db.Set<HotellRoom>()
-			.FirstOrDefaultAsync(x => x.Id == id);
+    public async Task ExecuteAsync(Guid id)
+    {
+        var room = await _db.Set<HotellRoom>()
+            .FirstOrDefaultAsync(x => x.Id == id);
 
-		if (room != null)
-		{
+        if (room != null)
+        {
 
-			_db.Remove(room);
-			await _db.SaveChangesAsync();
-		}
+            _db.Remove(room);
+            await _db.SaveChangesAsync();
+        }
 
-		await Task.CompletedTask;
-	}
+        await Task.CompletedTask;
+    }
 }

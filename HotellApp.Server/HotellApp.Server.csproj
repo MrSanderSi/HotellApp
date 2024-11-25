@@ -27,4 +27,12 @@
     <ProjectReference Include="..\HotellApp.Data\HotellApp.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\Users\sihve\source\repos\HotellApp\HotellApp.Server\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\Users\sihve\source\repos\HotellApp\HotellApp.Server\.editorconfig" />
+  </ItemGroup>
+
 </Project>
