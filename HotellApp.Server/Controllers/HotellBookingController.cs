@@ -54,7 +54,7 @@ public class HotellBookingController : ControllerBase
 
 		if (result.Success)
 		{
-			return CreatedAtAction(nameof(GetAllRoomsAsync), new { id = room.Id }, room);
+			return Ok(result);
 		}
 
 		_logger.LogError(result.ErrorMessage);
